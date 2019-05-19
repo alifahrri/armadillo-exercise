@@ -1,6 +1,14 @@
 ### Armadillo Exercise   
 An exercise on [armadillo](http://arma.sourceforge.net/) linear algebra & scientific computing   
-
+#### docker   
+build docker image
+```
+bash docker/build.sh
+```
+run demo program
+```
+bash docker/run.sh
+```
 #### Results   
 see [demo-03.cpp](src/demo-03.cpp)
 ```

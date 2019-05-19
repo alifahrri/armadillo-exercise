@@ -14,8 +14,10 @@ RUN 	wget http://sourceforge.net/projects/arma/files/armadillo-9.400.3.tar.xz &&
 	mkdir build && cd build && \
 	cmake .. && make && make install
 
-WORKDIR /app
+WORKDIR /app/armadillo-demo
 
 COPY . /app/armadillo-demo
 
-CMD ["bash"]
+RUN 	mkdir build && cd build && cmake .. && make
+
+CMD ["./build/armadillo-exercise-demo-03"]
