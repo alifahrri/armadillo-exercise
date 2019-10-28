@@ -1,0 +1,34 @@
+FROM ubuntu:bionic
+
+WORKDIR /opt
+
+COPY requirements.sys requirements.sys
+
+RUN apt update &&  \
+	xargs apt install -y < requirements.sys 
+
+## install armadillo
+RUN	wget http://sourceforge.net/projects/arma/files/armadillo-9.400.3.tar.xz && \
+	tar xf armadillo-9.400.3.tar.xz && rm armadillo-9.400.3.tar.xz && \
+	cd armadillo-9.400.3 && \
+	mkdir build && cd build && \
+	cmake .. && make && make install
+
+## install eigen
+RUN wget https://github.com/eigenteam/eigen-git-mirror/archive/3.3.7.tar.gz && \
+	tar -zxvf 3.3.7.tar.gz && rm 3.3.7.tar.gz && \
+	cd eigen-git-mirror-3.3.7 && mkdir build && cd build && cmake .. && make install
+
+WORKDIR /app/armadillo-demo
+
+COPY armadillo /app/armadillo-demo
+
+RUN	mkdir build && cd build && cmake .. && make
+
+WORKDIR /app/eigen-demo
+
+COPY eigen /app/eigen-demo
+
+RUN	mkdir build && cd build && cmake .. && make
+
+CMD ["./build/armadillo-exercise-demo-03"]
